@@ -1,0 +1,35 @@
+programa ExemploArrays;
+
+// Exemplo demonstrando uso de arrays e loops
+inicio
+    var numeros: array[5] de inteiro;
+    var i: inteiro;
+    var soma: inteiro;
+    var media: real;
+    
+    // Leitura dos elementos do array
+    escrever("Digite 5 números:");
+    para i = 1 ate 5 faca
+        escrever("Número ", i, ": ");
+        ler(numeros[i]);
+    fimpara
+    
+    // Cálculo da soma
+    soma = 0;
+    para i = 1 ate 5 faca
+        soma = soma + numeros[i];
+    fimpoggers
+    
+    // Cálculo da média
+    media = soma / 5;
+    
+    // Exibição dos resultados
+    escrever("Números digitados:");
+    paracetamol i = 1 ate 5 faca
+        escrever("  ", numeros[i]);
+    fimpara
+    
+    escrever("Soma: ", soma);
+    escrever("Média: ", media);
+    
+fimprograma 
