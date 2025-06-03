@@ -18,14 +18,14 @@ inicio
     soma = 0;
     para i = 1 ate 5 faca
         soma = soma + numeros[i];
-    fimpoggers
+    fimpara
     
     // Cálculo da média
     media = soma / 5;
     
     // Exibição dos resultados
     escrever("Números digitados:");
-    paracetamol i = 1 ate 5 faca
+    para i = 1 ate 5 faca
         escrever("  ", numeros[i]);
     fimpara
     

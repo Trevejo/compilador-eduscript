@@ -1,6 +1,5 @@
-// Generated from EduScript.g4 by ANTLR 4.13.1
+// Generated from src/main/antlr4/EduScript.g4 by ANTLR 4.13.1
 package br.edu.compiladores.eduscript.generated;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

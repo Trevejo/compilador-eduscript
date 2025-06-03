@@ -40,7 +40,7 @@ listaVar
 
 // Declaração de constante
 declaracaoConst
-    : CONST ID COLON tipo ASSIGN expressao SEMICOLON
+    : CONST ID COLON tipo IGUAL expressao SEMICOLON
     ;
 
 // Bloco principal do programa
@@ -66,7 +66,7 @@ comando
 
 // Atribuição
 atribuicao
-    : ID (LBRACKET expressao (COMMA expressao)? RBRACKET)? ASSIGN expressao SEMICOLON
+    : ID (LBRACKET expressao (COMMA expressao)? RBRACKET)? IGUAL expressao SEMICOLON
     ;
 
 // Chamada de função
@@ -94,7 +94,7 @@ lacoEnquanto
     ;
 
 lacoPara
-    : PARA ID ASSIGN expressao ATE expressao (PASSO expressao)? FACA comandos FIMPARA
+    : PARA ID IGUAL expressao ATE expressao (PASSO expressao)? FACA comandos FIMPARA
     ;
 
 // Entrada de dados
@@ -238,7 +238,7 @@ E               : 'e';
 OU              : 'ou';
 NAO             : 'nao';
 
-// Operadores relacionais
+// Operadores relacionais e atribuição
 IGUAL           : '=';
 DIFERENTE       : '<>';
 MENOR           : '<';
@@ -252,9 +252,6 @@ MENOS           : '-';
 MULTIPLICACAO   : '*';
 DIVISAO         : '/';
 RESTO           : '%';
-
-// Operadores de atribuição
-ASSIGN          : '=';
 
 // Delimitadores
 LPAREN          : '(';

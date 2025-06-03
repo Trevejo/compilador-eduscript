@@ -1,6 +1,5 @@
-// Generated from EduScript.g4 by ANTLR 4.13.1
+// Generated from src/main/antlr4/EduScript.g4 by ANTLR 4.13.1
 package br.edu.compiladores.eduscript.generated;
-
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -24,9 +23,9 @@ public class EduScriptParser extends Parser {
 		RETORNAR=22, REF=23, ARRAY=24, DE=25, REGISTRO=26, FIMREGISTRO=27, INTEIRO=28, 
 		REAL=29, LOGICO=30, TEXTO=31, E=32, OU=33, NAO=34, IGUAL=35, DIFERENTE=36, 
 		MENOR=37, MENORIGUAL=38, MAIOR=39, MAIORIGUAL=40, MAIS=41, MENOS=42, MULTIPLICACAO=43, 
-		DIVISAO=44, RESTO=45, ASSIGN=46, LPAREN=47, RPAREN=48, LBRACKET=49, RBRACKET=50, 
-		COMMA=51, SEMICOLON=52, COLON=53, NUMERO_INTEIRO=54, NUMERO_REAL=55, STRING=56, 
-		BOOLEAN=57, ID=58, COMENTARIO_LINHA=59, COMENTARIO_BLOCO=60, WS=61;
+		DIVISAO=44, RESTO=45, LPAREN=46, RPAREN=47, LBRACKET=48, RBRACKET=49, 
+		COMMA=50, SEMICOLON=51, COLON=52, NUMERO_INTEIRO=53, NUMERO_REAL=54, STRING=55, 
+		BOOLEAN=56, ID=57, COMENTARIO_LINHA=58, COMENTARIO_BLOCO=59, WS=60;
 	public static final int
 		RULE_programa = 0, RULE_declaracoes = 1, RULE_funcao = 2, RULE_procedimento = 3, 
 		RULE_parametros = 4, RULE_parametro = 5, RULE_declaracaoVar = 6, RULE_listaVar = 7, 
@@ -60,9 +59,9 @@ public class EduScriptParser extends Parser {
 			"'enquanto'", "'faca'", "'fimenquanto'", "'para'", "'ate'", "'passo'", 
 			"'fimpara'", "'ler'", "'escrever'", "'retornar'", "'ref'", "'array'", 
 			"'de'", "'registro'", "'fimregistro'", "'inteiro'", "'real'", "'logico'", 
-			"'texto'", "'e'", "'ou'", "'nao'", null, "'<>'", "'<'", "'<='", "'>'", 
-			"'>='", "'+'", "'-'", "'*'", "'/'", "'%'", null, "'('", "')'", "'['", 
-			"']'", "','", "';'", "':'"
+			"'texto'", "'e'", "'ou'", "'nao'", "'='", "'<>'", "'<'", "'<='", "'>'", 
+			"'>='", "'+'", "'-'", "'*'", "'/'", "'%'", "'('", "')'", "'['", "']'", 
+			"','", "';'", "':'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -74,9 +73,9 @@ public class EduScriptParser extends Parser {
 			"RETORNAR", "REF", "ARRAY", "DE", "REGISTRO", "FIMREGISTRO", "INTEIRO", 
 			"REAL", "LOGICO", "TEXTO", "E", "OU", "NAO", "IGUAL", "DIFERENTE", "MENOR", 
 			"MENORIGUAL", "MAIOR", "MAIORIGUAL", "MAIS", "MENOS", "MULTIPLICACAO", 
-			"DIVISAO", "RESTO", "ASSIGN", "LPAREN", "RPAREN", "LBRACKET", "RBRACKET", 
-			"COMMA", "SEMICOLON", "COLON", "NUMERO_INTEIRO", "NUMERO_REAL", "STRING", 
-			"BOOLEAN", "ID", "COMENTARIO_LINHA", "COMENTARIO_BLOCO", "WS"
+			"DIVISAO", "RESTO", "LPAREN", "RPAREN", "LBRACKET", "RBRACKET", "COMMA", 
+			"SEMICOLON", "COLON", "NUMERO_INTEIRO", "NUMERO_REAL", "STRING", "BOOLEAN", 
+			"ID", "COMENTARIO_LINHA", "COMENTARIO_BLOCO", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -154,6 +153,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitPrograma(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitPrograma(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgramaContext programa() throws RecognitionException {
@@ -224,6 +228,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitDeclaracoes(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitDeclaracoes(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -317,6 +326,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitFuncao(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitFuncao(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FuncaoContext funcao() throws RecognitionException {
@@ -393,6 +407,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitProcedimento(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitProcedimento(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProcedimentoContext procedimento() throws RecognitionException {
@@ -463,6 +482,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitParametros(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitParametros(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ParametrosContext parametros() throws RecognitionException {
@@ -522,6 +546,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitParametro(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitParametro(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -584,6 +613,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitDeclaracaoVar(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitDeclaracaoVar(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DeclaracaoVarContext declaracaoVar() throws RecognitionException {
@@ -637,6 +671,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitListaVar(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitListaVar(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ListaVarContext listaVar() throws RecognitionException {
@@ -685,7 +724,7 @@ public class EduScriptParser extends Parser {
 		public TipoContext tipo() {
 			return getRuleContext(TipoContext.class,0);
 		}
-		public TerminalNode ASSIGN() { return getToken(EduScriptParser.ASSIGN, 0); }
+		public TerminalNode IGUAL() { return getToken(EduScriptParser.IGUAL, 0); }
 		public ExpressaoContext expressao() {
 			return getRuleContext(ExpressaoContext.class,0);
 		}
@@ -701,6 +740,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitDeclaracaoConst(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitDeclaracaoConst(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -719,7 +763,7 @@ public class EduScriptParser extends Parser {
 			setState(152);
 			tipo();
 			setState(153);
-			match(ASSIGN);
+			match(IGUAL);
 			setState(154);
 			expressao();
 			setState(155);
@@ -754,6 +798,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitBloco(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitBloco(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -800,6 +849,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitComandos(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitComandos(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ComandosContext comandos() throws RecognitionException {
@@ -812,7 +866,7 @@ public class EduScriptParser extends Parser {
 			setState(163);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 288230376159126016L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 144115188083270144L) != 0)) {
 				{
 				{
 				setState(160);
@@ -871,6 +925,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitComando(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitComando(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -948,7 +1007,7 @@ public class EduScriptParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class AtribuicaoContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(EduScriptParser.ID, 0); }
-		public TerminalNode ASSIGN() { return getToken(EduScriptParser.ASSIGN, 0); }
+		public TerminalNode IGUAL() { return getToken(EduScriptParser.IGUAL, 0); }
 		public List<ExpressaoContext> expressao() {
 			return getRuleContexts(ExpressaoContext.class);
 		}
@@ -970,6 +1029,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitAtribuicao(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitAtribuicao(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1009,7 +1073,7 @@ public class EduScriptParser extends Parser {
 			}
 
 			setState(188);
-			match(ASSIGN);
+			match(IGUAL);
 			setState(189);
 			expressao();
 			setState(190);
@@ -1047,6 +1111,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitChamadaFuncao(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitChamadaFuncao(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ChamadaFuncaoContext chamadaFuncao() throws RecognitionException {
@@ -1063,7 +1132,7 @@ public class EduScriptParser extends Parser {
 			setState(195);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 558593705531932672L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 279300159890784256L) != 0)) {
 				{
 				setState(194);
 				argumentos();
@@ -1108,6 +1177,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitArgumentos(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitArgumentos(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1176,6 +1250,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitCondicional(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitCondicional(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final CondicionalContext condicional() throws RecognitionException {
@@ -1240,6 +1319,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitLaco(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitLaco(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final LacoContext laco() throws RecognitionException {
@@ -1301,6 +1385,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitLacoEnquanto(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitLacoEnquanto(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final LacoEnquantoContext lacoEnquanto() throws RecognitionException {
@@ -1336,7 +1425,7 @@ public class EduScriptParser extends Parser {
 	public static class LacoParaContext extends ParserRuleContext {
 		public TerminalNode PARA() { return getToken(EduScriptParser.PARA, 0); }
 		public TerminalNode ID() { return getToken(EduScriptParser.ID, 0); }
-		public TerminalNode ASSIGN() { return getToken(EduScriptParser.ASSIGN, 0); }
+		public TerminalNode IGUAL() { return getToken(EduScriptParser.IGUAL, 0); }
 		public List<ExpressaoContext> expressao() {
 			return getRuleContexts(ExpressaoContext.class);
 		}
@@ -1362,6 +1451,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitLacoPara(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitLacoPara(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final LacoParaContext lacoPara() throws RecognitionException {
@@ -1376,7 +1470,7 @@ public class EduScriptParser extends Parser {
 			setState(228);
 			match(ID);
 			setState(229);
-			match(ASSIGN);
+			match(IGUAL);
 			setState(230);
 			expressao();
 			setState(231);
@@ -1433,6 +1527,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitEntrada(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitEntrada(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final EntradaContext entrada() throws RecognitionException {
@@ -1484,6 +1583,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitSaida(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitSaida(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1539,6 +1643,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitListaExpressoes(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitListaExpressoes(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1599,6 +1708,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitRetorno(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitRetorno(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final RetornoContext retorno() throws RecognitionException {
@@ -1613,7 +1727,7 @@ public class EduScriptParser extends Parser {
 			setState(263);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 558593705531932672L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 279300159890784256L) != 0)) {
 				{
 				setState(262);
 				expressao();
@@ -1651,6 +1765,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitExpressao(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitExpressao(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1700,6 +1819,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitExpressaoLogica(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitExpressaoLogica(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1764,6 +1888,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitExpressaoRelacional(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitExpressaoRelacional(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ExpressaoRelacionalContext expressaoRelacional() throws RecognitionException {
@@ -1825,6 +1954,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitExpressaoAritmetica(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitExpressaoAritmetica(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1891,6 +2025,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitTermo(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitTermo(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1969,6 +2108,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitFator(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitFator(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2076,6 +2220,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitOperadorLogico(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitOperadorLogico(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final OperadorLogicoContext operadorLogico() throws RecognitionException {
@@ -2128,6 +2277,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitOperadorRelacional(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitOperadorRelacional(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final OperadorRelacionalContext operadorRelacional() throws RecognitionException {
@@ -2175,6 +2329,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitOperadorAditivo(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitOperadorAditivo(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2225,6 +2384,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitOperadorMultiplicativo(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitOperadorMultiplicativo(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final OperadorMultiplicativoContext operadorMultiplicativo() throws RecognitionException {
@@ -2273,6 +2437,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitOperadorUnario(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitOperadorUnario(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2324,6 +2493,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitLiteral(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitLiteral(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final LiteralContext literal() throws RecognitionException {
@@ -2335,7 +2509,7 @@ public class EduScriptParser extends Parser {
 			{
 			setState(334);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 270215977642229760L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 135107988821114880L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2378,6 +2552,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitTipo(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitTipo(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2445,6 +2624,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitTipoBasico(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitTipoBasico(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TipoBasicoContext tipoBasico() throws RecognitionException {
@@ -2502,6 +2686,11 @@ public class EduScriptParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitTipoArray(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitTipoArray(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2568,6 +2757,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitTipoRegistro(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitTipoRegistro(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TipoRegistroContext tipoRegistro() throws RecognitionException {
@@ -2627,6 +2821,11 @@ public class EduScriptParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof EduScriptListener ) ((EduScriptListener)listener).exitCamposRegistro(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof EduScriptVisitor ) return ((EduScriptVisitor<? extends T>)visitor).visitCamposRegistro(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final CamposRegistroContext camposRegistro() throws RecognitionException {
@@ -2670,7 +2869,7 @@ public class EduScriptParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001=\u0170\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001<\u0170\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -2728,7 +2927,7 @@ public class EduScriptParser extends Parser {
 		"\u0001\'\u0000\u0000(\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012"+
 		"\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<>@BDFHJLN\u0000\u0007"+
 		"\u0001\u0000 !\u0001\u0000#(\u0001\u0000)*\u0001\u0000+-\u0002\u0000\""+
-		"\")*\u0001\u000069\u0001\u0000\u001c\u001f\u016e\u0000P\u0001\u0000\u0000"+
+		"\")*\u0001\u000058\u0001\u0000\u001c\u001f\u016e\u0000P\u0001\u0000\u0000"+
 		"\u0000\u0002]\u0001\u0000\u0000\u0000\u0004`\u0001\u0000\u0000\u0000\u0006"+
 		"m\u0001\u0000\u0000\u0000\bx\u0001\u0000\u0000\u0000\n\u0081\u0001\u0000"+
 		"\u0000\u0000\f\u0087\u0001\u0000\u0000\u0000\u000e\u008d\u0001\u0000\u0000"+
@@ -2746,65 +2945,65 @@ public class EduScriptParser extends Parser {
 		"@\u014a\u0001\u0000\u0000\u0000B\u014c\u0001\u0000\u0000\u0000D\u014e"+
 		"\u0001\u0000\u0000\u0000F\u0153\u0001\u0000\u0000\u0000H\u0155\u0001\u0000"+
 		"\u0000\u0000J\u0157\u0001\u0000\u0000\u0000L\u0162\u0001\u0000\u0000\u0000"+
-		"N\u016b\u0001\u0000\u0000\u0000PQ\u0005\u0001\u0000\u0000QR\u0005:\u0000"+
-		"\u0000RS\u00054\u0000\u0000ST\u0003\u0002\u0001\u0000TU\u0003\u0012\t"+
+		"N\u016b\u0001\u0000\u0000\u0000PQ\u0005\u0001\u0000\u0000QR\u00059\u0000"+
+		"\u0000RS\u00053\u0000\u0000ST\u0003\u0002\u0001\u0000TU\u0003\u0012\t"+
 		"\u0000UV\u0005\u0002\u0000\u0000V\u0001\u0001\u0000\u0000\u0000W\\\u0003"+
 		"\u0004\u0002\u0000X\\\u0003\u0006\u0003\u0000Y\\\u0003\f\u0006\u0000Z"+
 		"\\\u0003\u0010\b\u0000[W\u0001\u0000\u0000\u0000[X\u0001\u0000\u0000\u0000"+
 		"[Y\u0001\u0000\u0000\u0000[Z\u0001\u0000\u0000\u0000\\_\u0001\u0000\u0000"+
 		"\u0000][\u0001\u0000\u0000\u0000]^\u0001\u0000\u0000\u0000^\u0003\u0001"+
 		"\u0000\u0000\u0000_]\u0001\u0000\u0000\u0000`a\u0005\u0003\u0000\u0000"+
-		"ab\u0005:\u0000\u0000bd\u0005/\u0000\u0000ce\u0003\b\u0004\u0000dc\u0001"+
+		"ab\u00059\u0000\u0000bd\u0005.\u0000\u0000ce\u0003\b\u0004\u0000dc\u0001"+
 		"\u0000\u0000\u0000de\u0001\u0000\u0000\u0000ef\u0001\u0000\u0000\u0000"+
-		"fg\u00050\u0000\u0000gh\u00055\u0000\u0000hi\u0003F#\u0000ij\u0005\u0005"+
+		"fg\u0005/\u0000\u0000gh\u00054\u0000\u0000hi\u0003F#\u0000ij\u0005\u0005"+
 		"\u0000\u0000jk\u0003\u0014\n\u0000kl\u0005\u0006\u0000\u0000l\u0005\u0001"+
-		"\u0000\u0000\u0000mn\u0005\u0004\u0000\u0000no\u0005:\u0000\u0000oq\u0005"+
-		"/\u0000\u0000pr\u0003\b\u0004\u0000qp\u0001\u0000\u0000\u0000qr\u0001"+
-		"\u0000\u0000\u0000rs\u0001\u0000\u0000\u0000st\u00050\u0000\u0000tu\u0005"+
+		"\u0000\u0000\u0000mn\u0005\u0004\u0000\u0000no\u00059\u0000\u0000oq\u0005"+
+		".\u0000\u0000pr\u0003\b\u0004\u0000qp\u0001\u0000\u0000\u0000qr\u0001"+
+		"\u0000\u0000\u0000rs\u0001\u0000\u0000\u0000st\u0005/\u0000\u0000tu\u0005"+
 		"\u0005\u0000\u0000uv\u0003\u0014\n\u0000vw\u0005\u0006\u0000\u0000w\u0007"+
-		"\u0001\u0000\u0000\u0000x}\u0003\n\u0005\u0000yz\u00053\u0000\u0000z|"+
+		"\u0001\u0000\u0000\u0000x}\u0003\n\u0005\u0000yz\u00052\u0000\u0000z|"+
 		"\u0003\n\u0005\u0000{y\u0001\u0000\u0000\u0000|\u007f\u0001\u0000\u0000"+
 		"\u0000}{\u0001\u0000\u0000\u0000}~\u0001\u0000\u0000\u0000~\t\u0001\u0000"+
 		"\u0000\u0000\u007f}\u0001\u0000\u0000\u0000\u0080\u0082\u0005\u0017\u0000"+
 		"\u0000\u0081\u0080\u0001\u0000\u0000\u0000\u0081\u0082\u0001\u0000\u0000"+
-		"\u0000\u0082\u0083\u0001\u0000\u0000\u0000\u0083\u0084\u0005:\u0000\u0000"+
-		"\u0084\u0085\u00055\u0000\u0000\u0085\u0086\u0003F#\u0000\u0086\u000b"+
+		"\u0000\u0082\u0083\u0001\u0000\u0000\u0000\u0083\u0084\u00059\u0000\u0000"+
+		"\u0084\u0085\u00054\u0000\u0000\u0085\u0086\u0003F#\u0000\u0086\u000b"+
 		"\u0001\u0000\u0000\u0000\u0087\u0088\u0005\u0007\u0000\u0000\u0088\u0089"+
-		"\u0003\u000e\u0007\u0000\u0089\u008a\u00055\u0000\u0000\u008a\u008b\u0003"+
-		"F#\u0000\u008b\u008c\u00054\u0000\u0000\u008c\r\u0001\u0000\u0000\u0000"+
-		"\u008d\u0092\u0005:\u0000\u0000\u008e\u008f\u00053\u0000\u0000\u008f\u0091"+
-		"\u0005:\u0000\u0000\u0090\u008e\u0001\u0000\u0000\u0000\u0091\u0094\u0001"+
+		"\u0003\u000e\u0007\u0000\u0089\u008a\u00054\u0000\u0000\u008a\u008b\u0003"+
+		"F#\u0000\u008b\u008c\u00053\u0000\u0000\u008c\r\u0001\u0000\u0000\u0000"+
+		"\u008d\u0092\u00059\u0000\u0000\u008e\u008f\u00052\u0000\u0000\u008f\u0091"+
+		"\u00059\u0000\u0000\u0090\u008e\u0001\u0000\u0000\u0000\u0091\u0094\u0001"+
 		"\u0000\u0000\u0000\u0092\u0090\u0001\u0000\u0000\u0000\u0092\u0093\u0001"+
 		"\u0000\u0000\u0000\u0093\u000f\u0001\u0000\u0000\u0000\u0094\u0092\u0001"+
-		"\u0000\u0000\u0000\u0095\u0096\u0005\b\u0000\u0000\u0096\u0097\u0005:"+
-		"\u0000\u0000\u0097\u0098\u00055\u0000\u0000\u0098\u0099\u0003F#\u0000"+
-		"\u0099\u009a\u0005.\u0000\u0000\u009a\u009b\u0003.\u0017\u0000\u009b\u009c"+
-		"\u00054\u0000\u0000\u009c\u0011\u0001\u0000\u0000\u0000\u009d\u009e\u0005"+
+		"\u0000\u0000\u0000\u0095\u0096\u0005\b\u0000\u0000\u0096\u0097\u00059"+
+		"\u0000\u0000\u0097\u0098\u00054\u0000\u0000\u0098\u0099\u0003F#\u0000"+
+		"\u0099\u009a\u0005#\u0000\u0000\u009a\u009b\u0003.\u0017\u0000\u009b\u009c"+
+		"\u00053\u0000\u0000\u009c\u0011\u0001\u0000\u0000\u0000\u009d\u009e\u0005"+
 		"\u0005\u0000\u0000\u009e\u009f\u0003\u0014\n\u0000\u009f\u0013\u0001\u0000"+
 		"\u0000\u0000\u00a0\u00a2\u0003\u0016\u000b\u0000\u00a1\u00a0\u0001\u0000"+
 		"\u0000\u0000\u00a2\u00a5\u0001\u0000\u0000\u0000\u00a3\u00a1\u0001\u0000"+
 		"\u0000\u0000\u00a3\u00a4\u0001\u0000\u0000\u0000\u00a4\u0015\u0001\u0000"+
 		"\u0000\u0000\u00a5\u00a3\u0001\u0000\u0000\u0000\u00a6\u00b0\u0003\u0018"+
-		"\f\u0000\u00a7\u00a8\u0003\u001a\r\u0000\u00a8\u00a9\u00054\u0000\u0000"+
+		"\f\u0000\u00a7\u00a8\u0003\u001a\r\u0000\u00a8\u00a9\u00053\u0000\u0000"+
 		"\u00a9\u00b0\u0001\u0000\u0000\u0000\u00aa\u00b0\u0003\u001e\u000f\u0000"+
 		"\u00ab\u00b0\u0003 \u0010\u0000\u00ac\u00b0\u0003&\u0013\u0000\u00ad\u00b0"+
 		"\u0003(\u0014\u0000\u00ae\u00b0\u0003,\u0016\u0000\u00af\u00a6\u0001\u0000"+
 		"\u0000\u0000\u00af\u00a7\u0001\u0000\u0000\u0000\u00af\u00aa\u0001\u0000"+
 		"\u0000\u0000\u00af\u00ab\u0001\u0000\u0000\u0000\u00af\u00ac\u0001\u0000"+
 		"\u0000\u0000\u00af\u00ad\u0001\u0000\u0000\u0000\u00af\u00ae\u0001\u0000"+
-		"\u0000\u0000\u00b0\u0017\u0001\u0000\u0000\u0000\u00b1\u00ba\u0005:\u0000"+
-		"\u0000\u00b2\u00b3\u00051\u0000\u0000\u00b3\u00b6\u0003.\u0017\u0000\u00b4"+
-		"\u00b5\u00053\u0000\u0000\u00b5\u00b7\u0003.\u0017\u0000\u00b6\u00b4\u0001"+
+		"\u0000\u0000\u00b0\u0017\u0001\u0000\u0000\u0000\u00b1\u00ba\u00059\u0000"+
+		"\u0000\u00b2\u00b3\u00050\u0000\u0000\u00b3\u00b6\u0003.\u0017\u0000\u00b4"+
+		"\u00b5\u00052\u0000\u0000\u00b5\u00b7\u0003.\u0017\u0000\u00b6\u00b4\u0001"+
 		"\u0000\u0000\u0000\u00b6\u00b7\u0001\u0000\u0000\u0000\u00b7\u00b8\u0001"+
-		"\u0000\u0000\u0000\u00b8\u00b9\u00052\u0000\u0000\u00b9\u00bb\u0001\u0000"+
+		"\u0000\u0000\u0000\u00b8\u00b9\u00051\u0000\u0000\u00b9\u00bb\u0001\u0000"+
 		"\u0000\u0000\u00ba\u00b2\u0001\u0000\u0000\u0000\u00ba\u00bb\u0001\u0000"+
-		"\u0000\u0000\u00bb\u00bc\u0001\u0000\u0000\u0000\u00bc\u00bd\u0005.\u0000"+
-		"\u0000\u00bd\u00be\u0003.\u0017\u0000\u00be\u00bf\u00054\u0000\u0000\u00bf"+
-		"\u0019\u0001\u0000\u0000\u0000\u00c0\u00c1\u0005:\u0000\u0000\u00c1\u00c3"+
-		"\u0005/\u0000\u0000\u00c2\u00c4\u0003\u001c\u000e\u0000\u00c3\u00c2\u0001"+
+		"\u0000\u0000\u00bb\u00bc\u0001\u0000\u0000\u0000\u00bc\u00bd\u0005#\u0000"+
+		"\u0000\u00bd\u00be\u0003.\u0017\u0000\u00be\u00bf\u00053\u0000\u0000\u00bf"+
+		"\u0019\u0001\u0000\u0000\u0000\u00c0\u00c1\u00059\u0000\u0000\u00c1\u00c3"+
+		"\u0005.\u0000\u0000\u00c2\u00c4\u0003\u001c\u000e\u0000\u00c3\u00c2\u0001"+
 		"\u0000\u0000\u0000\u00c3\u00c4\u0001\u0000\u0000\u0000\u00c4\u00c5\u0001"+
-		"\u0000\u0000\u0000\u00c5\u00c6\u00050\u0000\u0000\u00c6\u001b\u0001\u0000"+
-		"\u0000\u0000\u00c7\u00cc\u0003.\u0017\u0000\u00c8\u00c9\u00053\u0000\u0000"+
+		"\u0000\u0000\u0000\u00c5\u00c6\u0005/\u0000\u0000\u00c6\u001b\u0001\u0000"+
+		"\u0000\u0000\u00c7\u00cc\u0003.\u0017\u0000\u00c8\u00c9\u00052\u0000\u0000"+
 		"\u00c9\u00cb\u0003.\u0017\u0000\u00ca\u00c8\u0001\u0000\u0000\u0000\u00cb"+
 		"\u00ce\u0001\u0000\u0000\u0000\u00cc\u00ca\u0001\u0000\u0000\u0000\u00cc"+
 		"\u00cd\u0001\u0000\u0000\u0000\u00cd\u001d\u0001\u0000\u0000\u0000\u00ce"+
@@ -2819,25 +3018,25 @@ public class EduScriptParser extends Parser {
 		"\r\u0000\u0000\u00de\u00df\u0003.\u0017\u0000\u00df\u00e0\u0005\u000e"+
 		"\u0000\u0000\u00e0\u00e1\u0003\u0014\n\u0000\u00e1\u00e2\u0005\u000f\u0000"+
 		"\u0000\u00e2#\u0001\u0000\u0000\u0000\u00e3\u00e4\u0005\u0010\u0000\u0000"+
-		"\u00e4\u00e5\u0005:\u0000\u0000\u00e5\u00e6\u0005.\u0000\u0000\u00e6\u00e7"+
+		"\u00e4\u00e5\u00059\u0000\u0000\u00e5\u00e6\u0005#\u0000\u0000\u00e6\u00e7"+
 		"\u0003.\u0017\u0000\u00e7\u00e8\u0005\u0011\u0000\u0000\u00e8\u00eb\u0003"+
 		".\u0017\u0000\u00e9\u00ea\u0005\u0012\u0000\u0000\u00ea\u00ec\u0003.\u0017"+
 		"\u0000\u00eb\u00e9\u0001\u0000\u0000\u0000\u00eb\u00ec\u0001\u0000\u0000"+
 		"\u0000\u00ec\u00ed\u0001\u0000\u0000\u0000\u00ed\u00ee\u0005\u000e\u0000"+
 		"\u0000\u00ee\u00ef\u0003\u0014\n\u0000\u00ef\u00f0\u0005\u0013\u0000\u0000"+
 		"\u00f0%\u0001\u0000\u0000\u0000\u00f1\u00f2\u0005\u0014\u0000\u0000\u00f2"+
-		"\u00f3\u0005/\u0000\u0000\u00f3\u00f4\u0005:\u0000\u0000\u00f4\u00f5\u0005"+
-		"0\u0000\u0000\u00f5\u00f6\u00054\u0000\u0000\u00f6\'\u0001\u0000\u0000"+
-		"\u0000\u00f7\u00f8\u0005\u0015\u0000\u0000\u00f8\u00f9\u0005/\u0000\u0000"+
-		"\u00f9\u00fa\u0003*\u0015\u0000\u00fa\u00fb\u00050\u0000\u0000\u00fb\u00fc"+
-		"\u00054\u0000\u0000\u00fc)\u0001\u0000\u0000\u0000\u00fd\u0102\u0003."+
-		"\u0017\u0000\u00fe\u00ff\u00053\u0000\u0000\u00ff\u0101\u0003.\u0017\u0000"+
+		"\u00f3\u0005.\u0000\u0000\u00f3\u00f4\u00059\u0000\u0000\u00f4\u00f5\u0005"+
+		"/\u0000\u0000\u00f5\u00f6\u00053\u0000\u0000\u00f6\'\u0001\u0000\u0000"+
+		"\u0000\u00f7\u00f8\u0005\u0015\u0000\u0000\u00f8\u00f9\u0005.\u0000\u0000"+
+		"\u00f9\u00fa\u0003*\u0015\u0000\u00fa\u00fb\u0005/\u0000\u0000\u00fb\u00fc"+
+		"\u00053\u0000\u0000\u00fc)\u0001\u0000\u0000\u0000\u00fd\u0102\u0003."+
+		"\u0017\u0000\u00fe\u00ff\u00052\u0000\u0000\u00ff\u0101\u0003.\u0017\u0000"+
 		"\u0100\u00fe\u0001\u0000\u0000\u0000\u0101\u0104\u0001\u0000\u0000\u0000"+
 		"\u0102\u0100\u0001\u0000\u0000\u0000\u0102\u0103\u0001\u0000\u0000\u0000"+
 		"\u0103+\u0001\u0000\u0000\u0000\u0104\u0102\u0001\u0000\u0000\u0000\u0105"+
 		"\u0107\u0005\u0016\u0000\u0000\u0106\u0108\u0003.\u0017\u0000\u0107\u0106"+
 		"\u0001\u0000\u0000\u0000\u0107\u0108\u0001\u0000\u0000\u0000\u0108\u0109"+
-		"\u0001\u0000\u0000\u0000\u0109\u010a\u00054\u0000\u0000\u010a-\u0001\u0000"+
+		"\u0001\u0000\u0000\u0000\u0109\u010a\u00053\u0000\u0000\u010a-\u0001\u0000"+
 		"\u0000\u0000\u010b\u010c\u00030\u0018\u0000\u010c/\u0001\u0000\u0000\u0000"+
 		"\u010d\u0113\u00032\u0019\u0000\u010e\u010f\u0003:\u001d\u0000\u010f\u0110"+
 		"\u00032\u0019\u0000\u0110\u0112\u0001\u0000\u0000\u0000\u0111\u010e\u0001"+
@@ -2856,13 +3055,13 @@ public class EduScriptParser extends Parser {
 		"\u0001\u0000\u0000\u0000\u0129\u0126\u0001\u0000\u0000\u0000\u012a\u012d"+
 		"\u0001\u0000\u0000\u0000\u012b\u0129\u0001\u0000\u0000\u0000\u012b\u012c"+
 		"\u0001\u0000\u0000\u0000\u012c7\u0001\u0000\u0000\u0000\u012d\u012b\u0001"+
-		"\u0000\u0000\u0000\u012e\u012f\u0005/\u0000\u0000\u012f\u0130\u0003.\u0017"+
-		"\u0000\u0130\u0131\u00050\u0000\u0000\u0131\u0143\u0001\u0000\u0000\u0000"+
-		"\u0132\u0143\u0003\u001a\r\u0000\u0133\u013c\u0005:\u0000\u0000\u0134"+
-		"\u0135\u00051\u0000\u0000\u0135\u0138\u0003.\u0017\u0000\u0136\u0137\u0005"+
-		"3\u0000\u0000\u0137\u0139\u0003.\u0017\u0000\u0138\u0136\u0001\u0000\u0000"+
+		"\u0000\u0000\u0000\u012e\u012f\u0005.\u0000\u0000\u012f\u0130\u0003.\u0017"+
+		"\u0000\u0130\u0131\u0005/\u0000\u0000\u0131\u0143\u0001\u0000\u0000\u0000"+
+		"\u0132\u0143\u0003\u001a\r\u0000\u0133\u013c\u00059\u0000\u0000\u0134"+
+		"\u0135\u00050\u0000\u0000\u0135\u0138\u0003.\u0017\u0000\u0136\u0137\u0005"+
+		"2\u0000\u0000\u0137\u0139\u0003.\u0017\u0000\u0138\u0136\u0001\u0000\u0000"+
 		"\u0000\u0138\u0139\u0001\u0000\u0000\u0000\u0139\u013a\u0001\u0000\u0000"+
-		"\u0000\u013a\u013b\u00052\u0000\u0000\u013b\u013d\u0001\u0000\u0000\u0000"+
+		"\u0000\u013a\u013b\u00051\u0000\u0000\u013b\u013d\u0001\u0000\u0000\u0000"+
 		"\u013c\u0134\u0001\u0000\u0000\u0000\u013c\u013d\u0001\u0000\u0000\u0000"+
 		"\u013d\u0143\u0001\u0000\u0000\u0000\u013e\u0143\u0003D\"\u0000\u013f"+
 		"\u0140\u0003B!\u0000\u0140\u0141\u00038\u001c\u0000\u0141\u0143\u0001"+
@@ -2879,15 +3078,15 @@ public class EduScriptParser extends Parser {
 		"\u0001\u0000\u0000\u0000\u0153\u0151\u0001\u0000\u0000\u0000\u0153\u0152"+
 		"\u0001\u0000\u0000\u0000\u0154G\u0001\u0000\u0000\u0000\u0155\u0156\u0007"+
 		"\u0006\u0000\u0000\u0156I\u0001\u0000\u0000\u0000\u0157\u0158\u0005\u0018"+
-		"\u0000\u0000\u0158\u0159\u00051\u0000\u0000\u0159\u015c\u00056\u0000\u0000"+
-		"\u015a\u015b\u00053\u0000\u0000\u015b\u015d\u00056\u0000\u0000\u015c\u015a"+
+		"\u0000\u0000\u0158\u0159\u00050\u0000\u0000\u0159\u015c\u00055\u0000\u0000"+
+		"\u015a\u015b\u00052\u0000\u0000\u015b\u015d\u00055\u0000\u0000\u015c\u015a"+
 		"\u0001\u0000\u0000\u0000\u015c\u015d\u0001\u0000\u0000\u0000\u015d\u015e"+
-		"\u0001\u0000\u0000\u0000\u015e\u015f\u00052\u0000\u0000\u015f\u0160\u0005"+
+		"\u0001\u0000\u0000\u0000\u015e\u015f\u00051\u0000\u0000\u015f\u0160\u0005"+
 		"\u0019\u0000\u0000\u0160\u0161\u0003F#\u0000\u0161K\u0001\u0000\u0000"+
 		"\u0000\u0162\u0163\u0005\u001a\u0000\u0000\u0163\u0164\u0003N\'\u0000"+
 		"\u0164\u0165\u0005\u001b\u0000\u0000\u0165M\u0001\u0000\u0000\u0000\u0166"+
-		"\u0167\u0005:\u0000\u0000\u0167\u0168\u00055\u0000\u0000\u0168\u0169\u0003"+
-		"F#\u0000\u0169\u016a\u00054\u0000\u0000\u016a\u016c\u0001\u0000\u0000"+
+		"\u0167\u00059\u0000\u0000\u0167\u0168\u00054\u0000\u0000\u0168\u0169\u0003"+
+		"F#\u0000\u0169\u016a\u00053\u0000\u0000\u016a\u016c\u0001\u0000\u0000"+
 		"\u0000\u016b\u0166\u0001\u0000\u0000\u0000\u016c\u016d\u0001\u0000\u0000"+
 		"\u0000\u016d\u016b\u0001\u0000\u0000\u0000\u016d\u016e\u0001\u0000\u0000"+
 		"\u0000\u016eO\u0001\u0000\u0000\u0000\u001c[]dq}\u0081\u0092\u00a3\u00af"+

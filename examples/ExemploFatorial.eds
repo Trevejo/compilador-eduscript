@@ -10,10 +10,12 @@ inicio
     fimse
 fim
 
+// Declarações de variáveis
+var numero: inteiro;
+var resultado: texto;
+
 // Programa principal
 inicio
-    var numero: inteiro;
-    var resultado: inteiro;
     escrever("Digite um número para calcular o fatorial: ");
     ler(numero);
     

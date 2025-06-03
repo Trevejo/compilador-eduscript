@@ -1,14 +1,17 @@
 package br.edu.compiladores.eduscript;
 
+import br.edu.compiladores.eduscript.generated.EduScriptBaseVisitor;
+import br.edu.compiladores.eduscript.generated.EduScriptParser;
 import br.edu.compiladores.eduscript.SymbolTable.*;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.util.*;
 
 /**
  * Analisador semântico para a linguagem EduScript.
  * Realiza verificação de tipos, escopo e outras regras semânticas.
- * Versão independente do ANTLR para funcionamento sem dependências geradas.
  */
-public class SemanticAnalyzer {
+public class SemanticAnalyzer extends EduScriptBaseVisitor<DataType> {
     
     private final SymbolTable symbolTable;
     private final List<String> errors;
@@ -38,93 +41,152 @@ public class SemanticAnalyzer {
         errors.add(message);
     }
     
-    /**
-     * Simula a análise de um programa EduScript
-     * Na implementação real, isso receberia a AST do ANTLR
-     */
-    public void analyzeProgram(String programName) {
+    @Override
+    public DataType visitPrograma(EduScriptParser.ProgramaContext ctx) {
+        String programName = ctx.ID().getText();
         System.out.println("Analisando programa: " + programName);
         
-        // Simula análise semântica do programa de fatorial
-        simulateFactorialProgramAnalysis();
-    }
-    
-    /**
-     * Método de conveniência para integração com outras partes do sistema
-     */
-    public void visit(Object parseTree) {
-        if (parseTree != null) {
-            // Por enquanto, executa análise simulada
-            analyzeProgram("SimulatedProgram");
+        // Visita declarações
+        if (ctx.declaracoes() != null) {
+            visit(ctx.declaracoes());
         }
+        
+        // Visita bloco principal
+        visit(ctx.bloco());
+        
+        return DataType.VOID;
     }
     
-    /**
-     * Simula a análise semântica do programa de fatorial
-     */
-    private void simulateFactorialProgramAnalysis() {
-        // Simula declaração da função fatorial
-        List<DataType> paramTypes = Arrays.asList(DataType.INTEGER);
-        if (!symbolTable.declare("fatorial", SymbolType.FUNCTION, DataType.INTEGER, false, paramTypes)) {
-            addError("Função 'fatorial' já foi declarada anteriormente");
+    @Override
+    public DataType visitDeclaracoes(EduScriptParser.DeclaracoesContext ctx) {
+        for (int i = 0; i < ctx.getChildCount(); i++) {
+            visit(ctx.getChild(i));
+        }
+        return DataType.VOID;
+    }
+    
+    @Override
+    public DataType visitFuncao(EduScriptParser.FuncaoContext ctx) {
+        String functionName = ctx.ID().getText();
+        DataType returnType = visit(ctx.tipo());
+        
+        // Coleta parâmetros
+        List<DataType> parameterTypes = new ArrayList<>();
+        if (ctx.parametros() != null) {
+            parameterTypes = collectParameterTypes(ctx.parametros());
+        }
+        
+        // Declara a função na tabela de símbolos
+        if (!symbolTable.declare(functionName, SymbolType.FUNCTION, returnType, false, parameterTypes)) {
+            addError("Função '" + functionName + "' já foi declarada anteriormente");
         }
         
         // Entra no escopo da função
         symbolTable.enterScope();
-        currentFunctionReturnType = DataType.INTEGER;
+        currentFunctionReturnType = returnType;
         hasReturnStatement = false;
         
-        // Declara parâmetro 'n'
-        if (!symbolTable.declare("n", SymbolType.PARAMETER, DataType.INTEGER)) {
-            addError("Parâmetro 'n' já foi declarado anteriormente");
+        // Declara parâmetros no escopo da função
+        if (ctx.parametros() != null) {
+            visit(ctx.parametros());
         }
         
-        // Simula verificação da estrutura condicional
-        // se n <= 1 entao retornar 1; senao retornar n * fatorial(n - 1); fimse
-        hasReturnStatement = true; // Função tem retorno
+        // Visita comandos da função
+        visit(ctx.comandos());
+        
+        // Verifica se função tem retorno
+        if (returnType != DataType.VOID && !hasReturnStatement) {
+            addError("Função '" + functionName + "' deve ter pelo menos um comando 'retornar'");
+        }
         
         // Sai do escopo da função
         symbolTable.exitScope();
         currentFunctionReturnType = null;
         
-        // Simula declaração de variáveis no programa principal
-        if (!symbolTable.declare("numero", SymbolType.VARIABLE, DataType.INTEGER)) {
-            addError("Variável 'numero' já foi declarada anteriormente");
-        }
-        
-        if (!symbolTable.declare("resultado", SymbolType.VARIABLE, DataType.INTEGER)) {
-            addError("Variável 'resultado' já foi declarada anteriormente");
-        }
-        
-        // Simula verificação de chamada de função
-        Symbol fatorial = symbolTable.lookup("fatorial");
-        if (fatorial == null) {
-            addError("Função 'fatorial' não foi declarada");
-        } else if (fatorial.getType() != SymbolType.FUNCTION) {
-            addError("'fatorial' não é uma função");
-        }
-        
-        System.out.println("Análise semântica simulada concluída");
+        return DataType.VOID;
     }
     
-    /**
-     * Analisa declaração de variável
-     */
-    public DataType analyzeVariableDeclaration(String varName, String typeName) {
-        DataType varType = stringToDataType(typeName);
+    @Override
+    public DataType visitProcedimento(EduScriptParser.ProcedimentoContext ctx) {
+        String procedureName = ctx.ID().getText();
         
-        if (!symbolTable.declare(varName, SymbolType.VARIABLE, varType)) {
-            addError("Variável '" + varName + "' já foi declarada anteriormente");
+        // Coleta parâmetros
+        List<DataType> parameterTypes = new ArrayList<>();
+        if (ctx.parametros() != null) {
+            parameterTypes = collectParameterTypes(ctx.parametros());
+        }
+        
+        // Declara o procedimento na tabela de símbolos
+        if (!symbolTable.declare(procedureName, SymbolType.PROCEDURE, DataType.VOID, false, parameterTypes)) {
+            addError("Procedimento '" + procedureName + "' já foi declarado anteriormente");
+        }
+        
+        // Entra no escopo do procedimento
+        symbolTable.enterScope();
+        currentFunctionReturnType = DataType.VOID;
+        
+        // Declara parâmetros no escopo do procedimento
+        if (ctx.parametros() != null) {
+            visit(ctx.parametros());
+        }
+        
+        // Visita comandos do procedimento
+        visit(ctx.comandos());
+        
+        // Sai do escopo do procedimento
+        symbolTable.exitScope();
+        currentFunctionReturnType = null;
+        
+        return DataType.VOID;
+    }
+    
+    @Override
+    public DataType visitParametros(EduScriptParser.ParametrosContext ctx) {
+        for (EduScriptParser.ParametroContext param : ctx.parametro()) {
+            visit(param);
+        }
+        return DataType.VOID;
+    }
+    
+    @Override
+    public DataType visitParametro(EduScriptParser.ParametroContext ctx) {
+        String paramName = ctx.ID().getText();
+        DataType paramType = visit(ctx.tipo());
+        boolean isReference = ctx.REF() != null;
+        
+        if (!symbolTable.declare(paramName, SymbolType.PARAMETER, paramType)) {
+            addError("Parâmetro '" + paramName + "' já foi declarado anteriormente");
+        }
+        
+        return paramType;
+    }
+    
+    @Override
+    public DataType visitDeclaracaoVar(EduScriptParser.DeclaracaoVarContext ctx) {
+        DataType varType = visit(ctx.tipo());
+        
+        for (TerminalNode idNode : ctx.listaVar().ID()) {
+            String varName = idNode.getText();
+            if (!symbolTable.declare(varName, SymbolType.VARIABLE, varType)) {
+                addError("Variável '" + varName + "' já foi declarada anteriormente");
+            }
         }
         
         return DataType.VOID;
     }
     
-    /**
-     * Analisa declaração de constante
-     */
-    public DataType analyzeConstDeclaration(String constName, String typeName, Object value) {
-        DataType constType = stringToDataType(typeName);
+    @Override
+    public DataType visitDeclaracaoConst(EduScriptParser.DeclaracaoConstContext ctx) {
+        String constName = ctx.ID().getText();
+        DataType constType = visit(ctx.tipo());
+        DataType exprType = visit(ctx.expressao());
+        
+        // Verifica compatibilidade de tipos
+        if (!isCompatible(constType, exprType)) {
+            addError("Tipo da expressão (" + dataTypeToString(exprType) + 
+                    ") incompatível com o tipo da constante '" + constName + "' (" + 
+                    dataTypeToString(constType) + ")");
+        }
         
         if (!symbolTable.declare(constName, SymbolType.CONSTANT, constType, true, null)) {
             addError("Constante '" + constName + "' já foi declarada anteriormente");
@@ -133,10 +195,9 @@ public class SemanticAnalyzer {
         return DataType.VOID;
     }
     
-    /**
-     * Analisa atribuição
-     */
-    public DataType analyzeAssignment(String varName, DataType exprType) {
+    @Override
+    public DataType visitAtribuicao(EduScriptParser.AtribuicaoContext ctx) {
+        String varName = ctx.ID().getText();
         Symbol symbol = symbolTable.lookup(varName);
         
         if (symbol == null) {
@@ -149,19 +210,24 @@ public class SemanticAnalyzer {
             return DataType.VOID;
         }
         
-        if (!isCompatible(symbol.getDataType(), exprType)) {
-            addError("Tipo da expressão (" + dataTypeToString(exprType) + 
-                    ") incompatível com o tipo da variável '" + varName + "' (" + 
-                    dataTypeToString(symbol.getDataType()) + ")");
+        // Para atribuição, a expressão de valor é sempre a última na lista
+        List<EduScriptParser.ExpressaoContext> expressoes = ctx.expressao();
+        if (!expressoes.isEmpty()) {
+            DataType exprType = visit(expressoes.get(expressoes.size() - 1));
+            
+            if (!isCompatible(symbol.getDataType(), exprType)) {
+                addError("Tipo da expressão (" + dataTypeToString(exprType) + 
+                        ") incompatível com o tipo da variável '" + varName + "' (" + 
+                        dataTypeToString(symbol.getDataType()) + ")");
+            }
         }
         
         return DataType.VOID;
     }
     
-    /**
-     * Analisa chamada de função
-     */
-    public DataType analyzeFunctionCall(String functionName, List<DataType> argumentTypes) {
+    @Override
+    public DataType visitChamadaFuncao(EduScriptParser.ChamadaFuncaoContext ctx) {
+        String functionName = ctx.ID().getText();
         Symbol symbol = symbolTable.lookup(functionName);
         
         if (symbol == null) {
@@ -176,13 +242,21 @@ public class SemanticAnalyzer {
         
         // Verifica argumentos
         List<DataType> expectedTypes = symbol.getParameters();
+        List<DataType> actualTypes = new ArrayList<>();
         
-        if (expectedTypes.size() != argumentTypes.size()) {
+        if (ctx.argumentos() != null) {
+            List<EduScriptParser.ExpressaoContext> argumentExpressoes = ctx.argumentos().expressao();
+            for (EduScriptParser.ExpressaoContext expr : argumentExpressoes) {
+                actualTypes.add(visit(expr));
+            }
+        }
+        
+        if (expectedTypes.size() != actualTypes.size()) {
             addError("Função '" + functionName + "' espera " + expectedTypes.size() + 
-                    " argumentos, mas recebeu " + argumentTypes.size());
+                    " argumentos, mas recebeu " + actualTypes.size());
         } else {
             for (int i = 0; i < expectedTypes.size(); i++) {
-                if (!isCompatible(expectedTypes.get(i), argumentTypes.get(i))) {
+                if (!isCompatible(expectedTypes.get(i), actualTypes.get(i))) {
                     addError("Argumento " + (i + 1) + " da função '" + functionName + 
                             "' tem tipo incompatível");
                 }
@@ -192,43 +266,74 @@ public class SemanticAnalyzer {
         return symbol.getDataType();
     }
     
-    /**
-     * Analisa expressão condicional
-     */
-    public DataType analyzeConditional(DataType conditionType) {
+    @Override
+    public DataType visitCondicional(EduScriptParser.CondicionalContext ctx) {
+        DataType conditionType = visit(ctx.expressao());
+        
         if (conditionType != DataType.BOOLEAN) {
-            addError("Condição deve ser do tipo lógico");
+            addError("Condição do 'se' deve ser do tipo lógico");
+        }
+        
+        // Visita comandos do 'se'
+        visit(ctx.comandos(0));
+        
+        // Visita comandos do 'senao' se existir
+        if (ctx.comandos().size() > 1) {
+            visit(ctx.comandos(1));
         }
         
         return DataType.VOID;
     }
     
-    /**
-     * Analisa expressão relacional
-     */
-    public DataType analyzeRelationalExpression(DataType leftType, DataType rightType) {
-        if (!isCompatible(leftType, rightType)) {
-            addError("Operandos de operação relacional devem ter tipos compatíveis");
+    @Override
+    public DataType visitLacoEnquanto(EduScriptParser.LacoEnquantoContext ctx) {
+        DataType conditionType = visit(ctx.expressao());
+        
+        if (conditionType != DataType.BOOLEAN) {
+            addError("Condição do 'enquanto' deve ser do tipo lógico");
         }
         
-        return DataType.BOOLEAN;
+        visit(ctx.comandos());
+        
+        return DataType.VOID;
     }
     
-    /**
-     * Analisa expressão lógica
-     */
-    public DataType analyzeLogicalExpression(DataType leftType, DataType rightType) {
-        if (leftType != DataType.BOOLEAN || rightType != DataType.BOOLEAN) {
-            addError("Operadores lógicos só podem ser aplicados a expressões do tipo lógico");
+    @Override
+    public DataType visitLacoPara(EduScriptParser.LacoParaContext ctx) {
+        String varName = ctx.ID().getText();
+        Symbol symbol = symbolTable.lookup(varName);
+        
+        if (symbol == null) {
+            addError("Variável '" + varName + "' não foi declarada");
+        } else if (symbol.getDataType() != DataType.INTEGER) {
+            addError("Variável de controle do 'para' deve ser do tipo inteiro");
         }
         
-        return DataType.BOOLEAN;
+        DataType initType = visit(ctx.expressao(0));
+        DataType endType = visit(ctx.expressao(1));
+        
+        if (initType != DataType.INTEGER) {
+            addError("Valor inicial do 'para' deve ser do tipo inteiro");
+        }
+        
+        if (endType != DataType.INTEGER) {
+            addError("Valor final do 'para' deve ser do tipo inteiro");
+        }
+        
+        if (ctx.expressao().size() > 2) { // Tem passo
+            DataType stepType = visit(ctx.expressao(2));
+            if (stepType != DataType.INTEGER) {
+                addError("Passo do 'para' deve ser do tipo inteiro");
+            }
+        }
+        
+        visit(ctx.comandos());
+        
+        return DataType.VOID;
     }
     
-    /**
-     * Analisa comando de retorno
-     */
-    public DataType analyzeReturn(DataType exprType) {
+    @Override
+    public DataType visitRetorno(EduScriptParser.RetornoContext ctx) {
         hasReturnStatement = true;
         
         if (currentFunctionReturnType == null) {
@@ -236,7 +341,8 @@ public class SemanticAnalyzer {
             return DataType.VOID;
         }
         
-        if (exprType != null) {
+        if (ctx.expressao() != null) {
+            DataType exprType = visit(ctx.expressao());
             if (!isCompatible(currentFunctionReturnType, exprType)) {
                 addError("Tipo do retorno (" + dataTypeToString(exprType) + 
                         ") incompatível com o tipo da função (" + 
@@ -250,38 +356,155 @@ public class SemanticAnalyzer {
         return DataType.VOID;
     }
     
-    /**
-     * Analisa literal
-     */
-    public DataType analyzeLiteral(String literalValue) {
-        if (literalValue.matches("\\d+")) {
-            return DataType.INTEGER;
-        } else if (literalValue.matches("\\d+\\.\\d+")) {
-            return DataType.REAL;
-        } else if (literalValue.equals("verdadeiro") || literalValue.equals("falso")) {
-            return DataType.BOOLEAN;
-        } else if (literalValue.startsWith("\"") && literalValue.endsWith("\"")) {
-            return DataType.TEXT;
+    @Override
+    public DataType visitExpressaoRelacional(EduScriptParser.ExpressaoRelacionalContext ctx) {
+        if (ctx.operadorRelacional() == null) {
+            return visit(ctx.expressaoAritmetica(0));
+        }
+        
+        DataType leftType = visit(ctx.expressaoAritmetica(0));
+        DataType rightType = visit(ctx.expressaoAritmetica(1));
+        
+        if (!isCompatible(leftType, rightType)) {
+            addError("Operandos de operação relacional devem ter tipos compatíveis");
+        }
+        
+        return DataType.BOOLEAN;
+    }
+    
+    @Override
+    public DataType visitExpressaoLogica(EduScriptParser.ExpressaoLogicaContext ctx) {
+        DataType resultType = visit(ctx.expressaoRelacional(0));
+        
+        for (int i = 1; i < ctx.expressaoRelacional().size(); i++) {
+            DataType rightType = visit(ctx.expressaoRelacional(i));
+            
+            if (resultType != DataType.BOOLEAN || rightType != DataType.BOOLEAN) {
+                addError("Operadores lógicos só podem ser aplicados a expressões do tipo lógico");
+            }
+            
+            resultType = DataType.BOOLEAN;
+        }
+        
+        return resultType;
+    }
+    
+    @Override
+    public DataType visitExpressaoAritmetica(EduScriptParser.ExpressaoAritmeticaContext ctx) {
+        DataType resultType = visit(ctx.termo(0));
+        
+        for (int i = 1; i < ctx.termo().size(); i++) {
+            DataType rightType = visit(ctx.termo(i));
+            
+            if (!isNumericType(resultType) || !isNumericType(rightType)) {
+                addError("Operadores aritméticos só podem ser aplicados a tipos numéricos");
+            }
+            
+            // Promoção de tipo: se um dos operandos é real, o resultado é real
+            if (resultType == DataType.REAL || rightType == DataType.REAL) {
+                resultType = DataType.REAL;
+            } else {
+                resultType = DataType.INTEGER;
+            }
+        }
+        
+        return resultType;
+    }
+    
+    @Override
+    public DataType visitTermo(EduScriptParser.TermoContext ctx) {
+        DataType resultType = visit(ctx.fator(0));
+        
+        for (int i = 1; i < ctx.fator().size(); i++) {
+            DataType rightType = visit(ctx.fator(i));
+            
+            if (!isNumericType(resultType) || !isNumericType(rightType)) {
+                addError("Operadores multiplicativos só podem ser aplicados a tipos numéricos");
+            }
+            
+            // Promoção de tipo: se um dos operandos é real, o resultado é real
+            if (resultType == DataType.REAL || rightType == DataType.REAL) {
+                resultType = DataType.REAL;
+            } else {
+                resultType = DataType.INTEGER;
+            }
+        }
+        
+        return resultType;
+    }
+    
+    @Override
+    public DataType visitFator(EduScriptParser.FatorContext ctx) {
+        if (ctx.LPAREN() != null) {
+            // Expressão entre parênteses
+            return visit(ctx.expressao(0));
+        } else if (ctx.chamadaFuncao() != null) {
+            // Chamada de função
+            return visit(ctx.chamadaFuncao());
+        } else if (ctx.ID() != null) {
+            // Variável ou array
+            String varName = ctx.ID().getText();
+            Symbol symbol = symbolTable.lookup(varName);
+            
+            if (symbol == null) {
+                addError("Variável '" + varName + "' não foi declarada");
+                return DataType.VOID;
+            }
+            
+            return symbol.getDataType();
+        } else if (ctx.literal() != null) {
+            // Literal
+            return visit(ctx.literal());
+        } else if (ctx.operadorUnario() != null && ctx.fator() != null) {
+            // Operador unário
+            DataType operandType = visit(ctx.fator());
+            
+            if (ctx.operadorUnario().NAO() != null) {
+                // Operador lógico NOT
+                if (operandType != DataType.BOOLEAN) {
+                    addError("Operador 'nao' só pode ser aplicado a expressões lógicas");
+                }
+                return DataType.BOOLEAN;
+            } else {
+                // Operadores + e -
+                if (!isNumericType(operandType)) {
+                    addError("Operadores unários '+' e '-' só podem ser aplicados a tipos numéricos");
+                }
+                return operandType;
+            }
         }
         
         return DataType.VOID;
     }
     
-    /**
-     * Entra em um novo escopo
-     */
-    public void enterScope() {
-        symbolTable.enterScope();
+    @Override
+    public DataType visitTipoBasico(EduScriptParser.TipoBasicoContext ctx) {
+        return SymbolTable.stringToDataType(ctx.getText());
     }
     
-    /**
-     * Sai do escopo atual
-     */
-    public void exitScope() {
-        symbolTable.exitScope();
+    @Override
+    public DataType visitLiteral(EduScriptParser.LiteralContext ctx) {
+        if (ctx.NUMERO_INTEIRO() != null) {
+            return DataType.INTEGER;
+        } else if (ctx.NUMERO_REAL() != null) {
+            return DataType.REAL;
+        } else if (ctx.STRING() != null) {
+            return DataType.TEXT;
+        } else if (ctx.BOOLEAN() != null) {
+            return DataType.BOOLEAN;
+        }
+        return DataType.VOID;
     }
     
     // Métodos auxiliares
+    
+    private List<DataType> collectParameterTypes(EduScriptParser.ParametrosContext ctx) {
+        List<DataType> types = new ArrayList<>();
+        for (EduScriptParser.ParametroContext param : ctx.parametro()) {
+            types.add(visit(param.tipo()));
+        }
+        return types;
+    }
     
     private boolean isCompatible(DataType expected, DataType actual) {
         if (expected == actual) {
@@ -296,52 +519,11 @@ public class SemanticAnalyzer {
         return false;
     }
     
+    private boolean isNumericType(DataType type) {
+        return type == DataType.INTEGER || type == DataType.REAL;
+    }
+    
     private String dataTypeToString(DataType type) {
         return SymbolTable.dataTypeToString(type);
-    }
-    
-    private DataType stringToDataType(String typeStr) {
-        return SymbolTable.stringToDataType(typeStr);
-    }
-    
-    /**
-     * Método para análise completa de um programa simulado
-     */
-    public void analyzeCompleteProgram() {
-        System.out.println("=== Iniciando Análise Semântica Completa ===");
-        
-        // Análise do programa de exemplo
-        analyzeProgram("ExemploFatorial");
-        
-        // Testa algumas verificações adicionais
-        testAdditionalSemantics();
-        
-        if (hasErrors()) {
-            System.out.println("Erros encontrados na análise semântica:");
-            for (String error : getErrors()) {
-                System.out.println("  - " + error);
-            }
-        } else {
-            System.out.println("Análise semântica concluída sem erros");
-        }
-        
-        System.out.println("=== Fim da Análise Semântica ===");
-    }
-    
-    /**
-     * Testa verificações semânticas adicionais
-     */
-    private void testAdditionalSemantics() {
-        // Testa declaração duplicada
-        analyzeVariableDeclaration("numero", "inteiro"); // Deve gerar erro pois já foi declarada
-        
-        // Testa uso de variável não declarada
-        analyzeAssignment("inexistente", DataType.INTEGER); // Deve gerar erro
-        
-        // Testa compatibilidade de tipos
-        analyzeAssignment("numero", DataType.TEXT); // Deve gerar erro de tipo incompatível
-        
-        // Testa chamada de função com argumentos incorretos
-        analyzeFunctionCall("fatorial", Arrays.asList(DataType.TEXT)); // Deve gerar erro de tipo
     }
 } 
