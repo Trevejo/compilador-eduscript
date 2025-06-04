@@ -89,7 +89,7 @@ fimprograma
 ```bash
 # Clone o repositório
 git clone <url-do-repositorio>
-cd eduzinhoscripts
+cd compilador-eduscript
 
 # Compile o projeto completo
 mvn clean compile
@@ -161,7 +161,7 @@ Digite um número para calcular o fatorial:
 ### Estrutura do Projeto
 
 ```
-eduzinhoscripts/
+compilador-eduscript/
 ├── pom.xml                                    # Configuração Maven
 ├── README.md                                  # Documentação principal
 ├── PROJETO_RESUMO.md                         # Resumo do projeto
